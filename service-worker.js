@@ -28,8 +28,8 @@ self.syncTabState = function(data, clientId){
     clients.matchAll().then(function(clients) {
         // loop over all available clients
         clients.forEach(function(client) {
-                let arrLength = fibonacci(data);
-                self.sendTabState(client, arrLength)
+                let result = fibonacci(data);
+                self.sendTabState(client, result)
         })
     })
 };

@@ -41,8 +41,10 @@ const runShared = () => {
 const runService = () => {
     const dotsInt = dotsLoader();
     const num= getValue();
-
-    navigator.serviceWorker.controller.postMessage(num);
+    
+    navigator.serviceWorker.controller 
+        ? navigator.serviceWorker.controller.postMessage(num)
+        : location.reload(); // костыль
     navigator.serviceWorker.onmessage = (e) => {
         clearInterval(dotsInt);
         console.log('get: ', e.data)
