@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>shared worker</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <span>
+        Array length from main page (step 2): 
+        <span id='res'>0</span>
+    </span>
+    <br />
+    <button onclick=getWorker()>get from worker</button>
+
+    <script>
+        function getWorker() {
+            const sharedWorker = new SharedWorker('sharedWorker.js');
+            sharedWorker.port.postMessage('page2');
+            sharedWorker.port.onmessage = (e) => {
+                document.getElementById('res').innerText = e.data;
+            }
+        }
+    </script>
+</body>
+</html>

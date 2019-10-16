@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Workers demonstation</title>
+    <style type="text/css">
+        div {
+            height: 30px;
+        }
+        button {
+            height: 20px;
+        }
+        .run-cont {
+            display: flex; 
+            width: 350px;
+        }
+        label {
+            width: 170px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: flex;">
+        <label>non-blocking counter: &nbsp;</label>
+        <div id="timer"></div>
+    </div>
+    <div>
+        <label>make array from 1 to: &nbsp;</label>
+        <input id="val" type="number" value="20000000" style="width: 80px; margin-right: 5px;">
+        <span id="res"></span>
+    </div>
+    <hr />
+    <div>
+        <div class="run-cont">
+            <label for="push">1. Web Worker API</label>
+            <button id="push" onclick=runWeb()>run</button>
+        </div>
+        <div class="run-cont">
+            <label for="push">2. Shared Worker API</label>
+            <div>
+                <button id="push" onclick=runShared()>run</button>&nbsp;
+                <a href="index2.html" target="_blank">watch in new tab</a>
+            </div>
+        </div>
+    </div>
+    <script src="/index.js"></script>
+</body>
+</html>
