@@ -1,5 +1,5 @@
-self.importScripts('makeArr.js');
+self.importScripts('fibonacci.js');
 
 onmessage = (e) => {
-    postMessage(makeArr(e.data).length);
+    postMessage(fibonacci(e.data));
 }

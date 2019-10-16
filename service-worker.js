@@ -1,4 +1,4 @@
-self.importScripts('makeArr.js');
+self.importScripts('fibonacci.js');
 
 // activate worker immediately
 self.addEventListener('install', function(event) {
@@ -15,10 +15,10 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('message', function(event){
     // receive the data from the client
-    var data = event.data;
+    const data = event.data;
 
     // the unique ID of the tab
-    var clientId = event.source.id 
+    const clientId = event.source.id 
 
     // function that handles the message
     self.syncTabState(data, clientId);
@@ -28,7 +28,7 @@ self.syncTabState = function(data, clientId){
     clients.matchAll().then(function(clients) {
         // loop over all available clients
         clients.forEach(function(client) {
-                let arrLength = makeArr(data).length;
+                let arrLength = fibonacci(data);
                 self.sendTabState(client, arrLength)
         })
     })

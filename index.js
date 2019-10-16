@@ -9,11 +9,13 @@ nonBlockingCounter();
 
 //** web worker **
 const runWeb = () => {
-    const val = getValue();
+    const dotsInt = dotsLoader();
+    const num= getValue();
     const webWorker = new Worker('worker.js');
 
-    webWorker.postMessage(val);
+    webWorker.postMessage(num);
     webWorker.onmessage = (e) => {
+        clearInterval(dotsInt);
         console.log('get: ', e.data)
         showResult('Web Worker', e.data); 
     }
@@ -22,11 +24,13 @@ const runWeb = () => {
 
 //** shared worker **
 const runShared = () => {
-    const val = getValue();
+    const dotsInt = dotsLoader();
+    const num = getValue();
     const sharedWorker = new SharedWorker('sharedWorker.js');
 
-    sharedWorker.port.postMessage(val);
+    sharedWorker.port.postMessage(num);
     sharedWorker.port.onmessage = (e) => {
+        clearInterval(dotsInt);
         console.log('get: ', e.data)
         showResult('Shared Worker', e.data); 
     }
@@ -35,10 +39,12 @@ const runShared = () => {
 
 //** service worker **
 const runService = () => {
-    const val = getValue();
+    const dotsInt = dotsLoader();
+    const num= getValue();
 
-    navigator.serviceWorker.controller.postMessage(val);
+    navigator.serviceWorker.controller.postMessage(num);
     navigator.serviceWorker.onmessage = (e) => {
+        clearInterval(dotsInt);
         console.log('get: ', e.data)
         showResult('Service Worker', e.data); 
     }
@@ -75,10 +81,17 @@ function nonBlockingCounter() {
 }
 
 function getValue() {
-    res.innerText = ''
     return document.getElementById('val').value;
 }
 
 function showResult(workerType, result) {
-    res.innerText = workerType + ' is FINISH! array length: ' + result;
+    res.innerText = workerType + ' is FINISH! Nubmer is: ' + result;
+}
+
+function dotsLoader() {
+    let dots = 4;
+    return setInterval(() => {
+        dots++;
+        res.innerText = '. '.repeat(dots % 4)
+    }, 100);
 }
