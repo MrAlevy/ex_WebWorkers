@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Web Workers demonstation</title>
     <style type="text/css">
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        hr {
+            width: 100%;
+        }
         div {
             height: 30px;
         }
@@ -31,17 +38,24 @@
         <input id="val" type="number" value="20000000" style="width: 80px; margin-right: 5px;">
         <span id="res"></span>
     </div>
-    <hr />
+    <hr /><br />
     <div>
         <div class="run-cont">
-            <label for="push">1. Web Worker API</label>
-            <button id="push" onclick=runWeb()>run</button>
+            <label for="run">1. Web Worker API</label>
+            <button id="run" onclick=runWeb()>run</button>
         </div>
         <div class="run-cont">
-            <label for="push">2. Shared Worker API</label>
+            <label for="run">2. Shared Worker API</label>
             <div>
-                <button id="push" onclick=runShared()>run</button>&nbsp;
+                <button id="run" onclick=runShared()>run</button>&nbsp;
                 <a href="index2.html" target="_blank">watch in new tab</a>
+            </div>
+        </div>
+        <div class="run-cont">
+            <label for="run">3. Service Worker API</label>
+            <div>
+                <button id="regSw" onclick=regService()>reg</button>&nbsp;
+                <button id="run" onclick=runService()>run</button>&nbsp;
             </div>
         </div>
     </div>

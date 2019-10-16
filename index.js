@@ -7,25 +7,58 @@ nonBlockingCounter();
  * workers api's
  */
 
-// web worker
+//** web worker **
 const runWeb = () => {
     const val = getValue();
     const webWorker = new Worker('worker.js');
 
     webWorker.postMessage(val);
     webWorker.onmessage = (e) => {
+        console.log('get: ', e.data)
         showResult('Web Worker', e.data); 
     }
 }
 
-// shared worker
+
+//** shared worker **
 const runShared = () => {
     const val = getValue();
     const sharedWorker = new SharedWorker('sharedWorker.js');
+
     sharedWorker.port.postMessage(val);
     sharedWorker.port.onmessage = (e) => {
-        console.log(e.data)
+        console.log('get: ', e.data)
         showResult('Shared Worker', e.data); 
+    }
+}
+
+
+//** service worker **
+const runService = () => {
+    const val = getValue();
+
+    navigator.serviceWorker.controller.postMessage(val);
+    navigator.serviceWorker.onmessage = (e) => {
+        console.log('get: ', e.data)
+        showResult('Service Worker', e.data); 
+    }
+}
+
+// register service worker
+const regService = () => {
+    if ('serviceWorker' in navigator && !navigator.serviceWorker.controller) {
+        navigator.serviceWorker
+            .register('service-worker.js', { scope: '/' })
+            .then(function(reg) {
+                res.innerText = 'Service Worker registered!'; 
+                console.log('Registration succeeded. Scope is ' + reg.scope);
+            })
+            .catch(function(error) {
+                res.innerText = 'Service Worker register failed!'; 
+                console.log('Registration failed with ' + error);
+            })
+    } else {
+        res.innerText = 'Error: Service Worker already registered!';
     }
 }
 
